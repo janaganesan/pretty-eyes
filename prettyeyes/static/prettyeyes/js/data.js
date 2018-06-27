@@ -1,4 +1,14 @@
 var interval = 3000;
+
+String.prototype.format = function() {
+  var str = this;
+  for (var i = 0; i < arguments.length; i++) {
+    var reg = new RegExp("\\{" + i + "\\}", "gm");
+    str = str.replace(reg, arguments[i]);
+  }
+  return str;
+};
+
 function fetch_orders() {
     $.ajax({
         type: 'GET',
@@ -7,11 +17,9 @@ function fetch_orders() {
         dataType: 'json',
         success: function (data) {
             $.each(data, function (key, value) {
-                var list = $('<ul></ul>');
                 $('#order_list').empty();
-                $('#order_list').append(list);
                 $.each(value, function (index, order) {
-                    list.append('<li>' + order.order_id + '</li>');
+                    $('#order_list').append('<a href="/orders/{0}">{1}</a>'.format(order.pk, order.order_id));
                 });
             });
         },

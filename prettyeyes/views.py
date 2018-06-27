@@ -24,15 +24,15 @@ def home(request):
 
     return render(request, 'prettyeyes/home.html', {'form': form})
 
-def view_log(request):
-    template = loader.get_template('prettyeyes/view_log.html')
+def prettyeyes(request):
+    template = loader.get_template('prettyeyes/prettyeyes.html')
     context = {
         #'latest_question_list': latest_question_list,
     }
     return HttpResponse(template.render(context, request))
 
 def orders(request):
-    orders = [{'order_id': order.order_id} for order in Order.objects.all()]
+    orders = [{'order_id': order.order_id, 'pk': order.id} for order in Order.objects.all()]
     return JsonResponse({'orders': orders[-10:]})
 
 class OrderDetailView(generic.DetailView):

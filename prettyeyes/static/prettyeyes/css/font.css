@@ -1,0 +1,19 @@
+.box { display:inline-block; }
+
+.vertical-menu {
+    width: 40%;
+    height: 90%;
+    overflow-y: auto;
+}
+
+.vertical-menu a {
+    background-color: #eee;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+}
+
+.vertical-menu a:hover {
+    background-color: #ccc;
+}
