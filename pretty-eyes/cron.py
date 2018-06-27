@@ -27,13 +27,15 @@ class ReadLogFileCron(CronJobBase):
         History.objects.all().delete()
         Order.objects.all().delete()
         fname = "/Users/jganesan/Downloads/OC_cme.log"
+        pattern_to_match = ("order_submitter_inl", "ExecutionReport")
         for line in self.follow(fname):
-            r = re.search("order_id=(\S+)", line)
-            if r is not None:
-                order_id = r.group(1)
-                if Order.objects.filter(order_id=order_id).exists() is False:
-                    o = Order(order_id=order_id)
-                    o.save()
-                order = Order.objects.get(order_id=order_id)
-                History.objects.create(order=order, history=line)
-                print(len(Order.objects.all()))
+            if any(x in line for x in pattern_to_match) is True:
+                r = re.search("\sorder_id=(\S+)", line)
+                if r is not None:
+                    order_id = r.group(1)
+                    print(order_id)
+                    if Order.objects.filter(order_id=order_id).exists() is False:
+                        o = Order(order_id=order_id)
+                        o.save()
+                    order = Order.objects.get(order_id=order_id)
+                    History.objects.create(order=order, history=line)
