@@ -9,7 +9,7 @@ class ReadLogFileCron(CronJobBase):
     RUN_EVERY_MINS = 1
 
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
-    code = 'pretty-eyes.sampleCron'
+    code = 'prettyeyes.sampleCron'
 
     def follow(self, name):
         with open(name, "r") as f:

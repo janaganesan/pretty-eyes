@@ -1,4 +1,4 @@
-"""pretty-eyes URL Configuration
+"""prettyeyes URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -20,6 +20,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('pretty-eyes/', views.view_log, name='view_log'),
+    path('prettyeyes/', views.view_log, name='view_log'),
     path('orders/', views.orders, name='orders'),
+    path('orders/<int:pk>/', views.OrderDetailView.as_view(), name='order_detail'),
 ]

@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order detail</title>
+</head>
+<body>
+    <link rel="stylesheet" type="text/css" href="{% static 'prettyeyes/css/table_style.css' %}" />
+    {% for history in order.history_set.all %}
+        <table id="table-blue">
+            <th>history.name</th>
+            <td>history</td>
+        </table>
+        <br/>
+    {% endfor %}
+</body>
+</html>
