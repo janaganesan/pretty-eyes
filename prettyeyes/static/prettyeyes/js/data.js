@@ -19,7 +19,7 @@ function fetch_orders() {
             $.each(data, function (key, value) {
                 $('#order_list').empty();
                 $.each(value, function (index, order) {
-                    $('#order_list').append('<a href="/orders/{0}">{1}</a>'.format(order.pk, order.order_id));
+                    $('#order_list').append('<a href="/orders/{0}" target="frame_data">{1}</a>'.format(order.pk, order.order_id));
                 });
             });
         },

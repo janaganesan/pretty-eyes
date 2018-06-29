@@ -32,8 +32,8 @@ def prettyeyes(request):
     return HttpResponse(template.render(context, request))
 
 def orders(request):
-    orders = [{'order_id': order.order_id, 'pk': order.id} for order in Order.objects.all()]
-    return JsonResponse({'orders': orders[-10:]})
+    orders = [{'order_id': order.order_id, 'pk': order.id} for order in Order.objects.all()][::-1]
+    return JsonResponse({'orders': orders[:100]})
 
 class OrderDetailView(generic.DetailView):
     model = Order
