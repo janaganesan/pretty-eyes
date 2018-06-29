@@ -22,5 +22,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('prettyeyes/', views.prettyeyes, name='prettyeyes'),
     path('orders/', views.orders, name='orders'),
-    path('orders/<int:pk>/', views.OrderDetailView.as_view(), name='order_detail'),
+    path('orders/<int:pk>/', views.OrderDetailView.as_view(), name='report_html'),
+    path('orders/<int:pk>/reportjson/', views.report_detail, name='report_json'),
 ]

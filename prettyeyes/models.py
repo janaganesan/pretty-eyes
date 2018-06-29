@@ -8,7 +8,8 @@ class Order(models.Model):
     def __str__(self):
         return self.order_id
 
-class History(models.Model):
+
+class Report(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     history = models.TextField()
 

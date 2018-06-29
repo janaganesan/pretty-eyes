@@ -9,27 +9,28 @@ String.prototype.format = function() {
   return str;
 };
 
-function fetch_orders() {
+
+function report_history() {
     $.ajax({
         type: 'GET',
-        url: '/orders',
+        url: window.location.pathname + 'reportjson/',
         data: $(this).serialize(),
         dataType: 'json',
         success: function (data) {
             $.each(data, function (key, value) {
-                $('#order_list').empty();
-                $.each(value, function (index, order) {
-                    $('#order_list').append('<a href="/orders/{0}" target="frame_data">{1}</a>'.format(order.pk, order.order_id));
+                $('#report_container').empty();
+                $.each(value, function (index, report) {
+                    $('#report_container').append('<div><table id="table-blue"><th>{0}</th><tr><td>{1}</td></tr></table></div><br/>'.format(report.name, report.report));
                 });
             });
         },
         complete: function (data) {
                 // Schedule the next
-                setTimeout(fetch_orders, interval);
+                setTimeout(report_history, interval);
         }
     });
 }
 
 $(document).ready( function () {
-    fetch_orders();
+    report_history();
 } );

@@ -1,4 +1,4 @@
-from .models import Order, History
+from .models import Order, Report
 from django_cron import CronJobBase, Schedule
 import os
 import time
@@ -24,7 +24,7 @@ class ReadLogFileCron(CronJobBase):
                 yield line
 
     def do(self):
-        History.objects.all().delete()
+        Report.objects.all().delete()
         Order.objects.all().delete()
         fname = "/Users/jganesan/Downloads/OC_cme.log"
         pattern_to_match = ("order_submitter_inl", "ExecutionReport")
@@ -38,4 +38,4 @@ class ReadLogFileCron(CronJobBase):
                         o = Order(order_id=order_id)
                         o.save()
                     order = Order.objects.get(order_id=order_id)
-                    History.objects.create(order=order, history=line)
+                    Report.objects.create(order=order, history=line)
