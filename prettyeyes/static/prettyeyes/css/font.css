@@ -1,15 +1,15 @@
 .box { display:inline-block; }
 
 html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-
-            }
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 #container {
-    overflow:scroll;
+    overflow-x:scroll;
+    overflow-y:scroll;
     width: 100%;
     height: 95%;
 }
@@ -28,7 +28,16 @@ html, body {
     text-decoration: none;
 }
 
+.sub-menu a {
+    background-color: white;
+    color: black;
+    display: inline-block;
+    padding-left: 40px;
+    text-decoration: none;
+}
+
 .vertical-menu a:hover {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     background-color: green;
     color: white;
 }

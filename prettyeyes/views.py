@@ -4,7 +4,7 @@ from django.template import loader
 from django.views import generic
 
 from .forms import LogFileNameForm
-from .models import Order
+from .models import Order, Report
 
 def home(request):
     # if this is a POST request we need to process the form data
@@ -32,12 +32,17 @@ def prettyeyes(request):
     return HttpResponse(template.render(context, request))
 
 def orders(request):
-    orders = [{'order_id': order.order_id, 'pk': order.id} for order in Order.objects.all()][::-1]
-    return JsonResponse({'orders': orders[:100]})
+    orders = []
+    for o in Order.objects.all()[::-1]:
+        order = {}
+        order.update({'order_id': o.order_id, 'pk': o.id})
+        order['reports'] = [{'name': r.name(), 'pk': r.pk} for r in o.report_set.all()]
+        orders.append(order)
+    return JsonResponse({'orders': orders[:10]})
 
 def order_detail(request):
     orders = [{'order_id': order.order_id, 'pk': order.id} for order in Order.objects.all()][::-1]
-    return JsonResponse({'orders': orders[:100]})
+    return JsonResponse({'orders': orders[:10]})
 
 class OrderDetailView(generic.DetailView):
     model = Order
@@ -56,4 +61,9 @@ def report_detail(request, pk):
     order = Order.objects.get(id=pk)
     reports = [{'name': r.name(), 'report': str(r)} for r in order.report_set.all()]
     return JsonResponse({'reports': reports})
+
+def report_table(request, pk):
+    report = Report.objects.get(id=pk)
+    data = report.report_json()['report']
+    return render(request, 'prettyeyes/report_table.html', {'data': sorted(data.items())})
 

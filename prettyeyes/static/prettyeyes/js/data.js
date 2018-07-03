@@ -20,6 +20,11 @@ function fetch_orders() {
                 $('#order_list').empty();
                 $.each(value, function (index, order) {
                     $('#order_list').append('<a href="/orders/{0}" target="frame_data">{1}</a>'.format(order.pk, order.order_id));
+                    var sub_menu = $('<div class="sub-menu"></div>');
+                    $.each(order.reports, function (index, report) {
+                        $(sub_menu).append('<a href="/report/{0}" target="frame_data">{1}</a>'.format(report.pk, report.name));
+                    });
+                    $(sub_menu).appendTo('#order_list');
                 });
             });
         },

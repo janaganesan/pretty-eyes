@@ -20,3 +20,22 @@
     background-color: darkblue;
     color: white;
 }
+
+#report-table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+#report-table td, #report-table th {
+    border: 2px solid #ddd;
+    padding: 8px;
+}
+#report-table tr td:first-child {font-weight: bold;}
+#report-table tr td:last-child {color: dimgray;}
+#report-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: darkblue;
+    color: white;
+}
