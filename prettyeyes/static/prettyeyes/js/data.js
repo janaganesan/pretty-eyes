@@ -17,14 +17,21 @@ function fetch_orders() {
         dataType: 'json',
         success: function (data) {
             $.each(data, function (key, value) {
-                $('#order_list').empty();
                 $.each(value, function (index, order) {
-                    $('#order_list').append('<a href="/orders/{0}" target="frame_data">{1}</a>'.format(order.pk, order.order_id));
-                    var sub_menu = $('<div class="sub-menu"></div>');
+                    if ($("#order_" + order.pk).length == 0) {
+                        var order_menu = $('<div id="order_{0}"></div>'.format(order.pk));
+                        $(order_menu).append('<a class="order-link" href="/orders/{0}" target="frame_data">{1}</a>'.format(order.pk, order.order_id));
+                        $(order_menu).prependTo($("#order_list"))
+                    }
+                    if ($("#reportmenu_" + order.pk).length == 0) {
+                        $("#order_" + order.pk).append($('<div id="reportmenu_{0}" class="sub-menu"></div>'.format(order.pk)));
+                        $("#reportmenu_" + order.pk).hide()
+                    }
                     $.each(order.reports, function (index, report) {
-                        $(sub_menu).append('<a href="/report/{0}" target="frame_data">{1}</a>'.format(report.pk, report.name));
+                        if($("#report_" + report.pk).length == 0) {
+                            $("#reportmenu_" + order.pk).append($('<a id="report_{0}" href="/report/{1}" target="frame_data">{2}</a>'.format(report.pk, report.pk, report.name)));
+                        }
                     });
-                    $(sub_menu).appendTo('#order_list');
                 });
             });
         },
@@ -37,4 +44,9 @@ function fetch_orders() {
 
 $(document).ready( function () {
     fetch_orders();
+    $("#order_list").on("click", '*[id^="order_"]', function(event) {
+        if($(event.target).attr('class') === "order-link") {
+            $(this).find(".sub-menu").fadeToggle(500);
+        }
+    });
 } );

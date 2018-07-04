@@ -33,16 +33,16 @@ def prettyeyes(request):
 
 def orders(request):
     orders = []
-    for o in Order.objects.all()[::-1]:
+    for o in Order.objects.all():
         order = {}
         order.update({'order_id': o.order_id, 'pk': o.id})
         order['reports'] = [{'name': r.name(), 'pk': r.pk} for r in o.report_set.all()]
         orders.append(order)
-    return JsonResponse({'orders': orders[:10]})
+    return JsonResponse({'orders': orders})
 
 def order_detail(request):
-    orders = [{'order_id': order.order_id, 'pk': order.id} for order in Order.objects.all()][::-1]
-    return JsonResponse({'orders': orders[:10]})
+    orders = [{'order_id': order.order_id, 'pk': order.id} for order in Order.objects.all()]
+    return JsonResponse({'orders': orders})
 
 class OrderDetailView(generic.DetailView):
     model = Order
