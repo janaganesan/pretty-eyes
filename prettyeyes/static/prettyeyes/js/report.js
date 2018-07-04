@@ -20,7 +20,11 @@ function report_history() {
             $.each(data, function (key, value) {
                 $('#report_container').empty();
                 $.each(value, function (index, report) {
-                    $('#report_container').append('<div><table id="table-blue"><th>{0}</th><tr><td>{1}</td></tr></table></div><br/>'.format(report.name, report.report));
+                    var report_class = $('<div id="table_{0}"></div>'.format(report.pk));
+                    if($("#table_" + report.pk).length == 0) {
+                        $(report_class).append('<table id="table-blue"><th>{0}</th><tr><td>{1}</td></tr></table><br/>'.format(report.name, report.report));
+                        $('#report_container').append(report_class);
+                    }
                 });
             });
         },

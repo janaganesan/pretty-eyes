@@ -20,7 +20,7 @@ function fetch_orders() {
                 $.each(value, function (index, order) {
                     if ($("#order_" + order.pk).length == 0) {
                         var order_menu = $('<div id="order_{0}"></div>'.format(order.pk));
-                        $(order_menu).append('<a class="order-link" href="/orders/{0}" target="frame_data">{1}</a>'.format(order.pk, order.order_id));
+                        $(order_menu).append('<img class="slider plus-icon"></img><a class="order-link" href="/orders/{0}" target="frame_data">{1}</a>'.format(order.pk, order.order_id));
                         $(order_menu).prependTo($("#order_list"))
                     }
                     if ($("#reportmenu_" + order.pk).length == 0) {
@@ -45,8 +45,17 @@ function fetch_orders() {
 $(document).ready( function () {
     fetch_orders();
     $("#order_list").on("click", '*[id^="order_"]', function(event) {
-        if($(event.target).attr('class') === "order-link") {
-            $(this).find(".sub-menu").fadeToggle(500);
+        if ($(event.target).attr('class') === "order-link") {
+            $(this).find(".sub-menu").fadeIn(500);
+            $(this).find(".plus-icon").addClass("minus-icon").removeClass("plus-icon");
+        }
+    });
+    $("#order_list").on("click", ".slider", function(event) {
+        $(this).siblings('.sub-menu').toggle();
+        if ($(this).siblings('.sub-menu').is(":visible")) {
+            $(this).addClass("minus-icon").removeClass("plus-icon");
+        } else {
+            $(this).addClass("plus-icon").removeClass("minus-icon");
         }
     });
 } );
