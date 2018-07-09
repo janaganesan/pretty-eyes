@@ -1,4 +1,4 @@
-var interval = 3000;
+var interval = 1000;
 
 String.prototype.format = function() {
   var str = this;

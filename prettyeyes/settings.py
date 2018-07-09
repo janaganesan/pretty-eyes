@@ -126,3 +126,6 @@ CRON_CLASSES = [
     "prettyeyes.cron.ReadLogFileCron",
     # ...
 ]
+
+# File that stores config information
+CONFIG_FILE = 'config.json'

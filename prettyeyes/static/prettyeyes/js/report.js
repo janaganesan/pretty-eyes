@@ -18,7 +18,6 @@ function report_history() {
         dataType: 'json',
         success: function (data) {
             $.each(data, function (key, value) {
-                $('#report_container').empty();
                 $.each(value, function (index, report) {
                     var report_class = $('<div id="table_{0}"></div>'.format(report.pk));
                     if($("#table_" + report.pk).length == 0) {

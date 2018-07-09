@@ -1,5 +1,25 @@
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit" />
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Pretty Eyes</title>
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+    {% load staticfiles %}
+</head>
+<body>
+    <link rel="stylesheet" type="text/css" href="{% static 'prettyeyes/css/font.css' %}" />
+    <div class="gradient-box">
+        <div class="gradient-text">
+            <h2>Welcome to</h2>
+            <h1>Pretty Eyes</h1>
+        </div>
+    </div>
+    <br/>
+    <h3>Choose a log file name to continue...</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Go" />
+    </form>
+</body>
+</html>

@@ -59,7 +59,7 @@ class OrderDetailView(generic.DetailView):
 
 def report_detail(request, pk):
     order = Order.objects.get(id=pk)
-    reports = [{'name': r.name(), 'report': str(r)} for r in order.report_set.all()]
+    reports = [{'name': r.name(), 'pk': r.pk, 'report': str(r)} for r in order.report_set.all()]
     return JsonResponse({'reports': reports})
 
 def report_table(request, pk):
