@@ -1,28 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends "prettyeyes/base.html" %}
+{% load static %}
+
+{% block title %}
     <title>Welcome to Pretty Eyes</title>
-    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
-    {% load staticfiles %}
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'prettyeyes/css/font.css' %}" />
-    <div class="gradient-box">
-        <div class="gradient-text">
-            <h4>Tired of long running logs?</h4>
-            <h2>Try</h2>
-            <h1>"Pretty Eyes"</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="gradient-box text-center">
+                <h4 style="padding-top: 100px">Tired of long running logs?</h4>
+                <br/>
+                <span class="h6">Let's try, </span>
+                <span class="h1" style="padding-bottom: 100px">"Pretty Eyes"</span>
+            </div>
         </div>
     </div>
-    <br/>
-    <h3>Choose a log file name to continue...</h3>
-    <div class="form-center">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Go" />
-        </form>
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h3 class="p-md-3">Choose a log file name to continue...</h3>
+            <div class="form-center">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Go" />
+                </form>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}

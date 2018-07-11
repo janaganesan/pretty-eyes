@@ -80,9 +80,7 @@ html, body {
 }
 
 .gradient-box {
-    margin-top: 5%;
-	width: 100%;
-	height: 50%;
+    height: 300px;
 	color: #fff;
 	background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
 	background-size: 400% 400%;
@@ -136,19 +134,19 @@ html, body {
 	left: 0;
 }
 
-h1 {
+h11 {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: 5em;
     text-align: center;
 }
 
-h2 {
+h21 {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: 2em;
     text-align: center;
 }
 
-h3 {
+h31 {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: 1.5em;
     text-align: center;
