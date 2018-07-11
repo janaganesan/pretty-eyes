@@ -15,15 +15,18 @@
 
 .add-icon {
     content: url("/static/prettyeyes/images/plus-icon.png");
+    margin-top: 10px;
+    margin-bottom: 10px;
     max-width: 25px;
-    padding: 10px;
-    padding-top: 5px;
+    max-height: 25px;
     cursor: pointer;
 }
 
 .remove-icon {
     content: url("/static/prettyeyes/images/minus-icon.png");
-    max-width: 20px;
-    display: inline-block;
+    margin-left: 10px;
+    margin-top: 4px;
+    max-width: 25px;
+    max-height: 25px;
     cursor: pointer;
 }

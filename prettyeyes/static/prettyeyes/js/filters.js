@@ -7,7 +7,20 @@ String.prototype.format = function() {
   return str;
 };
 
+function add_row(text1, text2) {
+    if(!text1) {text1='';}
+    if(!text2) {text2='';}
+    var filter_row = $('' +
+        '<div class="input-group">' +
+        '<input type="text" class="form-control m-md-2" name="key" value="{0}" placeholder="Field name"></input>'.format(text1) +
+        '<input type="text" class="form-control m-md-2" name="value" value="{0}" placeholder="Value"></input>'.format(text2) +
+        '<span><div class="remove-icon" /></span>' +
+        '</div>');
+    $(filter_row).appendTo($('#filter-content'));
+}
+
 function fetch_filters() {
+    $('#filter-content').empty();
     $.ajax({
         type: 'GET',
         url: '/filters',
@@ -16,33 +29,34 @@ function fetch_filters() {
         success: function (data) {
             $.each(data.filters, function (key, value) {
                 add_row(key, value);
-                alert(key + value);
             });
         }
     });
-    //if($('.filter-row').length === 0) {add_row();}
-}
-
-function add_row(text1, text2) {
-    if(!text1) {text1='';}
-    if(!text2) {text2='';}
-    var row_id = 0;
-    if($('.filter-row').length > 0) {
-        row_id = parseInt($('.filter-row').last().attr('id').split('_')[1]) + 1;
-    }
-    var filter_row = $('<div id="row_{0}" class="filter-row"></div>'.format(row_id));
-    $(filter_row).append($('<input class="form-input" value="{0}"></input><input class="form-input" value="{1}"></input>'.format(text1, text2)));
-    $(filter_row).append($('<img id="rm_{0}" class="remove-icon" />'.format(row_id)));
-    $(filter_row).appendTo($('#container'));
 }
 
 $(document).ready( function () {
-    fetch_filters();
-    $(".filter-form").on("click", "#add-row", function(event) {
+    $('#filtermodal').on('show.bs.modal', function() {
+       fetch_filters();
+    });
+    $(".modal-body").on("click", ".add-icon", function(event) {
         add_row();
     });
-    $(".filter-form").on("click", ".remove-icon", function(event) {
-        row_id = $(event.target).attr('id').split('_')[1];
-        $("#row_" + row_id).remove();
+    $("#filter-content").on("click", ".remove-icon", function(event) {
+        $(this).parents('.input-group').fadeOut().remove();
+    });
+    $(".filter-form").on("click", "#form-submit", function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "filters/",
+            data: $('form.filter-form').serialize(),
+            success: function(response) {
+                $("#filtermodal").modal('hide');
+            },
+            error: function() {
+                alert('Error');
+            }
+        });
+        return false;
     });
 } );

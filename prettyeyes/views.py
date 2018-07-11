@@ -2,10 +2,11 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.template import loader
 from django.views import generic
+from django import forms
 
 from .forms import LogFileNameForm
 from .models import Order, Report
-from .config import read_config
+from .config import read_config, write_config
 
 def home(request):
     # if this is a POST request we need to process the form data
@@ -27,17 +28,21 @@ def home(request):
 
 def filters(request):
     filters = {}
-    if request.is_ajax():
-        content = read_config()
-        if 'filters' in content:
-            filters = content['filters']
+    content = read_config()
+    if 'filters' in content:
+        filters = content['filters']
+
+    if request.method == 'POST':
+        filters = {}
+        data = request.POST
+        for key, value in zip(data.getlist("key"), data.getlist("value")):
+            filters[key] = value
+        write_config({'filters': filters})
+
+    elif request.is_ajax():
         return JsonResponse({'filters': filters})
-    else:
-        template = loader.get_template('prettyeyes/filters.html')
-        context = {
-            # 'latest_question_list': latest_question_list,
-        }
-        return HttpResponse(template.render(context, request))
+
+    return HttpResponse('')
 
 def prettyeyes(request):
     template = loader.get_template('prettyeyes/prettyeyes.html')

@@ -8,12 +8,15 @@
         <link rel="stylesheet" type="text/css" href="{% static 'prettyeyes/css/bootstrap.min.css' %}" />
         <script type="text/javascript" src="{% static 'prettyeyes/js/jquery-3.3.1.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'prettyeyes/js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'prettyeyes/js/filters.js' %}"></script>
         {% block extra_js %}
         {% endblock %}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
+        <link rel="stylesheet" type="text/css" href="{% static 'prettyeyes/css/filters.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'prettyeyes/css/custom_style.css' %}" />
         <nav class="navbar navbar-expand-sm bg-light navbar-light">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -22,11 +25,38 @@
                 <li class="nav-item">
                     <a class="nav-link text-primary" href="prettyeyes/">LogView</a>
                 </li>
+                <li class="nav-item">
+                    <a id="show-filters" class="nav-link text-primary" href="" data-toggle="modal" data-target="#filtermodal">Filters</a>
+                </li>
             </ul>
         </nav>
         <div class="container-fluid">
             {% block content %}
             {% endblock %}
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="filtermodal" tabindex="-1" role="dialog" aria-labelledby="Filter" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="filterTitle">Filters</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form class="filter-form" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div id="filter-content"></div>
+                            <div class="input-group"><div class="add-icon" /></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="form-submit">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </body>
 </html>
