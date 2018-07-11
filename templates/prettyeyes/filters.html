@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filters</title>
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+    {% load staticfiles %}
+    <script type="text/javascript" src="{% static 'prettyeyes/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'prettyeyes/js/filters.js' %}"></script>
+</head>
+<body>
+    <link rel="stylesheet" type="text/css" href="{% static 'prettyeyes/css/filters.css' %}" />
+    <div class="filter-form">
+        <form id="filter-form" method="post">
+            {% csrf_token %}
+            <div>
+                <span class="form-title">Field</span>
+                <span class="form-title">Value</span>
+            </div>
+            <div id="container">
+            </div>
+            <img id="add-row" class="add-icon" />
+            <br/>
+            <input width="10%" type="submit" value="Ok" />
+        </form>
+    </div>
+</body>
+</html>

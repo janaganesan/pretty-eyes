@@ -1,0 +1,29 @@
+.form-input {
+    display: inline-block;
+    width: 200px;
+    font-size: medium;
+    margin: 10px;
+}
+
+.form-title {
+    display: inline-block;
+    width: 200px;
+    font-weight: bold;
+    font-size: large;
+    margin: 10px;
+}
+
+.add-icon {
+    content: url("/static/prettyeyes/images/plus-icon.png");
+    max-width: 25px;
+    padding: 10px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+.remove-icon {
+    content: url("/static/prettyeyes/images/minus-icon.png");
+    max-width: 20px;
+    display: inline-block;
+    cursor: pointer;
+}

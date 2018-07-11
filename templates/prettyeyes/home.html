@@ -10,16 +10,19 @@
     <link rel="stylesheet" type="text/css" href="{% static 'prettyeyes/css/font.css' %}" />
     <div class="gradient-box">
         <div class="gradient-text">
-            <h2>Welcome to</h2>
-            <h1>Pretty Eyes</h1>
+            <h4>Tired of long running logs?</h4>
+            <h2>Try</h2>
+            <h1>"Pretty Eyes"</h1>
         </div>
     </div>
     <br/>
     <h3>Choose a log file name to continue...</h3>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Go" />
-    </form>
+    <div class="form-center">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Go" />
+        </form>
+    </div>
 </body>
 </html>

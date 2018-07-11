@@ -5,6 +5,7 @@ from django.views import generic
 
 from .forms import LogFileNameForm
 from .models import Order, Report
+from .config import read_config
 
 def home(request):
     # if this is a POST request we need to process the form data
@@ -23,6 +24,20 @@ def home(request):
         form = LogFileNameForm()
 
     return render(request, 'prettyeyes/home.html', {'form': form})
+
+def filters(request):
+    filters = {}
+    if request.is_ajax():
+        content = read_config()
+        if 'filters' in content:
+            filters = content['filters']
+        return JsonResponse({'filters': filters})
+    else:
+        template = loader.get_template('prettyeyes/filters.html')
+        context = {
+            # 'latest_question_list': latest_question_list,
+        }
+        return HttpResponse(template.render(context, request))
 
 def prettyeyes(request):
     template = loader.get_template('prettyeyes/prettyeyes.html')
@@ -52,7 +67,7 @@ class OrderDetailView(generic.DetailView):
     # Use this to pass any extra information
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super().get_context_data(**kwargs)
+        context = super(OrderDetailView).get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         # context['reverse_report'] = self.get_object().report_set.all()[::-1]
         return context

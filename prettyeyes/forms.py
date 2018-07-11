@@ -13,7 +13,7 @@ def log_file_choices():
 
 
 class LogFileNameForm(forms.Form):
-    file_name = forms.ChoiceField(label='Log file name', widget=forms.Select(), choices=log_file_choices())
+    file_name = forms.ChoiceField(label='Log file name', widget=forms.Select(attrs={'class': 'drop-down'}), choices=log_file_choices())
 
     def clean_file_name(self):
         file_name = dict(self.fields['file_name'].choices)[self.cleaned_data['file_name']]
