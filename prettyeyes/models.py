@@ -1,13 +1,40 @@
 import json
 
 from django.db import models
+from .config import read_config
 from .parse_log import parse_text
+
+
+class OrderManager(models.Manager):
+    def get_queryset(self):
+        config = read_config()
+        if 'filters' in config and 'order_id' in config['filters']:
+            return super().get_queryset().filter(order_id=config['filters']['order_id'])
+        return super().get_queryset()
+
 
 class Order(models.Model):
     order_id = models.CharField(max_length=200)
 
     def __str__(self):
         return self.order_id
+
+    def filtered_set(self):
+        config = read_config()
+        if 'filters' in config and 'order_id' in config['filters']:
+            return self.objects.filter(order_id=config['filters']['order_id'])
+        return self.objects.all()
+
+
+class ReportManager(models.Manager):
+    def get_queryset(self):
+        config = read_config()
+        queryset = super().get_queryset().all()
+        if 'filters' in config:
+            for key, value in config['filters'].items():
+                string = "{}={}".format(key, value)
+                queryset = queryset.filter(history__icontains=string)
+        return queryset
 
 
 class Report(models.Model):
@@ -39,3 +66,9 @@ class Report(models.Model):
             self.name_text = ' '.join(name)
             self.save(update_fields=['name_text'])
         return self.name_text
+
+    def is_matching_filter(self):
+        config = read_config()
+        if 'filters' in config:
+            return all("{}={}".format(key, value) in self.history for key, value in config['filters'].items())
+        return True

@@ -56,7 +56,7 @@ def orders(request):
     for o in Order.objects.all():
         order = {}
         order.update({'order_id': o.order_id, 'pk': o.id})
-        order['reports'] = [{'name': r.name(), 'pk': r.pk} for r in o.report_set.all()]
+        order['reports'] = [{'name': r.name(), 'pk': r.pk} for r in o.report_set.all() if r.is_matching_filter()]
         orders.append(order)
     return JsonResponse({'orders': orders})
 
