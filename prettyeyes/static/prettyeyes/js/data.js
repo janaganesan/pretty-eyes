@@ -33,7 +33,7 @@ function fetch_orders() {
                         if($("#report_" + report.pk).length == 0) {
                             var report_menu = $('' +
                                 '<div class="form-check">' +
-                                '<input type="checkbox" class="form-check-input" id="cb_{0}">'.format(report.pk) +
+                                '<input type="checkbox" class="form-check-input mt-2" id="cb_{0}">'.format(report.pk) +
                                 '<a id="report_{0}" href="/report/{1}" target="frame_data">{2}</a>'.format(report.pk, report.pk, report.name) +
                                 '</div>'
                             );

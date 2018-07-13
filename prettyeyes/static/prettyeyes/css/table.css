@@ -22,7 +22,7 @@
     width: 100%;
 }
 #report-table td, #report-table th {
-    border: 2px solid #ddd;
+    border: 2px solid gray;
     padding: 8px;
 }
 #report-table tr td:last-child {font-weight: bold; border-left: 0;}
@@ -41,11 +41,11 @@
 }
 #compare-report tr {
     border: 0;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
 }
 #compare-report tr:last-child {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid gray;
 }
 #compare-report td {
     padding: 4px;
@@ -57,5 +57,5 @@
     text-align: center;
     background-color: white;
     color: darkblue;
-    border: 1px solid black;
+    border: 1px solid gray;
 }

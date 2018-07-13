@@ -68,7 +68,7 @@ html, body {
     overflow: scroll;
 }
 
-.modal-dialog {
+#diffModal .modal-dialog {
     width: 90%;
     max-width: 90%;
     height: 90%;
@@ -77,7 +77,7 @@ html, body {
     padding: 0;
 }
 
-.modal-content {
+#diffModal .modal-content {
     height: auto;
     min-height: 90%;
     border-radius: 0;
