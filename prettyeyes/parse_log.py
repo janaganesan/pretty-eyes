@@ -33,12 +33,21 @@ def convert_curly_string_to_dict(text, result=None):
     key = m.group(1)
     if key in result:
         key = "{0}__{1}".format(key, len([x for x in result.keys() if x.startswith(key)]))
-    result[key] = {}
-    result[key] = convert_curly_string_to_dict(text[m.end() - 1:end + 1], result=result[key])
+    result[key] = text[m.end() - 1:end + 1]
     remaining = (text[:start] + text[end+1:]).rstrip()
     if re.search('[a-zA-Z]', remaining) is not None:
         convert_curly_string_to_dict(remaining, result=result)
     return result
+    # Recursive method to convert innermost fields to dict
+    # key = m.group(1)
+    # if key in result:
+    #     key = "{0}__{1}".format(key, len([x for x in result.keys() if x.startswith(key)]))
+    # result[key] = {}
+    # result[key] = convert_curly_string_to_dict(text[m.end() - 1:end + 1], result=result[key])
+    # remaining = (text[:start] + text[end+1:]).rstrip()
+    # if re.search('[a-zA-Z]', remaining) is not None:
+    #     convert_curly_string_to_dict(remaining, result=result)
+    # return result
 
 
 def convert_curly_string_to_list(text):

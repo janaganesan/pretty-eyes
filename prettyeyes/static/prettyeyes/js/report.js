@@ -21,7 +21,7 @@ function report_history() {
                 $.each(value, function (index, report) {
                     var report_class = $('<div id="table_{0}"></div>'.format(report.pk));
                     if($("#table_" + report.pk).length == 0) {
-                        $(report_class).append('<table id="table-blue"><th>{0}</th><tr><td>{1}</td></tr></table><br/>'.format(report.name, report.report));
+                        $(report_class).append('<table id="report-history"><th>{0}</th><tr><td>{1}</td></tr></table><br/>'.format(report.name, report.report));
                         $('#report_container').append(report_class);
                     }
                 });

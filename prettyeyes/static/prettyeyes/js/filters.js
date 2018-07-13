@@ -48,7 +48,7 @@ $(document).ready( function () {
         e.preventDefault();
         $.ajax({
             type: "POST",
-            url: "filters/",
+            url: "/filters/",
             data: $('form.filter-form').serialize(),
             success: function(response) {
                 $("#filtermodal").modal('hide');

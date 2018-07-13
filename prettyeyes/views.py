@@ -53,7 +53,7 @@ def prettyeyes(request):
 
 def orders(request):
     orders = []
-    for o in Order.objects.all():
+    for o in Order.manager.get_queryset():
         order = {}
         order.update({'order_id': o.order_id, 'pk': o.id})
         order['reports'] = [{'name': r.name(), 'pk': r.pk} for r in o.report_set.all() if r.is_matching_filter()]
@@ -72,7 +72,7 @@ class OrderDetailView(generic.DetailView):
     # Use this to pass any extra information
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super(OrderDetailView).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         # context['reverse_report'] = self.get_object().report_set.all()[::-1]
         return context
@@ -85,5 +85,44 @@ def report_detail(request, pk):
 def report_table(request, pk):
     report = Report.objects.get(id=pk)
     data = report.report_json()['report']
-    return render(request, 'prettyeyes/report_table.html', {'data': sorted(data.items())})
+    return render(request, 'prettyeyes/report_table.html', {'data': sorted(data.items()), 'name': report.name()})
 
+def diff_report_css(left, right):
+    common = [key for key in left.keys() if key in right]
+    uniq_left = [key for key in left.keys() if key not in common]
+    uniq_right = [key for key in right.keys() if key not in common]
+    css_left = []
+    css_right = []
+
+    for key in sorted(common):
+        if left[key] == right[key]:
+            c = "diff_white"
+        else:
+            c = "diff_orange"
+        css_left.append({'content': "{0}: {1}".format(key, left[key]), 'class': c})
+        css_right.append({'content': "{0}: {1}".format(key, right[key]), 'class': c})
+
+    for key in sorted(uniq_left):
+        css_left.append({'content': "{0}: {1}".format(key, left[key]), 'class': 'diff_green'})
+        css_right.append({'content': '', 'class': 'diff_grey'})
+
+    for key in sorted(uniq_right):
+        css_left.append({'content': '', 'class': 'diff_grey'})
+        css_right.append({'content': "{0}: {1}".format(key, right[key]), 'class': 'diff_green'})
+
+    return css_left, css_right
+
+def diffreport(request):
+    diffreport = {}
+    if request.method == 'POST':
+        data = request.POST
+        left = Report.objects.get(id=data.get('left'))
+        left_json = left.report_json()['report']
+        right = Report.objects.get(id=data.get('right'))
+        right_json = right.report_json()['report']
+        diffreport["col1"], diffreport["col2"] = diff_report_css(left_json, right_json)
+        diffreport["name1"] = left.name()
+        diffreport["name2"] = right.name()
+        return JsonResponse(diffreport)
+
+    return HttpResponse('')

@@ -1,24 +1,19 @@
-#table-blue {
+#report-history {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
-
-#table-blue td, #table-blue th {
+#report-history td, #report-history th {
     border: 2px solid #ddd;
     padding: 8px;
 }
-
-#table-blue tr:nth-child(even){background-color: white;}
-
-#table-blue td:hover {border: 2px solid red;}
-
-#table-blue th {
+#report-history tr:nth-child(even){background-color: white; color: dimgray}
+#report-history th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: darkblue;
-    color: white;
+    background-color: white;
+    color: darkblue;
 }
 
 #report-table {
@@ -30,12 +25,37 @@
     border: 2px solid #ddd;
     padding: 8px;
 }
-#report-table tr td:first-child {font-weight: bold;}
-#report-table tr td:last-child {color: dimgray;}
+#report-table tr td:last-child {font-weight: bold; border-left: 0;}
+#report-table tr td:first-child {color: dimgray; border-right: 0;}
 #report-table th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: darkblue;
-    color: white;
+    background-color: white;
+    color: darkblue;
+}
+
+#compare-report {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+}
+#compare-report tr {
+    border: 0;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+#compare-report tr:last-child {
+    border-bottom: 1px solid black;
+}
+#compare-report td {
+    padding: 4px;
+    padding-left: 10px;
+}
+#compare-report th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: white;
+    color: darkblue;
+    border: 1px solid black;
 }

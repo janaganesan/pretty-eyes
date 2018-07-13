@@ -10,20 +10,17 @@ class OrderManager(models.Manager):
         config = read_config()
         if 'filters' in config and 'order_id' in config['filters']:
             return super().get_queryset().filter(order_id=config['filters']['order_id'])
-        return super().get_queryset()
+        return super().get_queryset().all()
 
 
 class Order(models.Model):
     order_id = models.CharField(max_length=200)
 
+    objects = models.Manager()
+    manager = OrderManager()
+
     def __str__(self):
         return self.order_id
-
-    def filtered_set(self):
-        config = read_config()
-        if 'filters' in config and 'order_id' in config['filters']:
-            return self.objects.filter(order_id=config['filters']['order_id'])
-        return self.objects.all()
 
 
 class ReportManager(models.Manager):

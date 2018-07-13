@@ -25,5 +25,6 @@ urlpatterns = [
     path('orders/<int:pk>/', views.OrderDetailView.as_view(), name='report_html'),
     path('orders/<int:pk>/reportjson/', views.report_detail, name='report_json'),
     path('report/<int:pk>/', views.report_table, name='report_table'),
-    path('filters/', views.filters, name='report_table'),
+    path('filters/', views.filters, name='filters'),
+    path('diffreport/', views.diffreport, name='diffreport'),
 ]
